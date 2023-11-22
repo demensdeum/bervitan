@@ -1,5 +1,6 @@
 from os import system, chdir, path, getcwd
 from re import sub
+from pydub import AudioSegment
 
 class Engine:    
     def tts2wav(
@@ -15,7 +16,8 @@ class Engine:
             coqui_model_name: str = "goblin.pth",
             coqui_index_path: str = r"C:\Users\Demensdeum\Documents\Sources\3rdParty\RVC1006Nvidia\logs\goblin\added_IVF2148_Flat_nprobe_1_goblin_v2.index",
             coqui_is_half: bool = False,
-            coqui_run_debug: bool = False
+            coqui_run_debug: bool = False,
+            convert_to_mp3 = False
             ):
         if is_russian:
             import pyttsx3
@@ -57,6 +59,11 @@ class Engine:
                 print(command)
             exit_code = system(command)
             chdir(previous_cwd)
+
+            if exit_code == 0 and convert_to_mp3:
+                audio = AudioSegment.from_wav(output_filepath)
+                mp3_path = output_filepath + ".mp3"
+                audio.export(mp3_path, format="mp3")                
 
             return exit_code == 0
         else:

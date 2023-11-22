@@ -2,28 +2,13 @@ import sys
 from pathlib import Path
 sys.path.append(str(Path(sys.argv[0]).resolve().parent.parent))
 import bervitan
-from pydub import AudioSegment
 import os
-
-def convert_wav_to_mp3(input_folder):
-    wav_files = [f for f in os.listdir(input_folder) if f.endswith(".wav")]
-
-    for wav_file in wav_files:
-        wav_path = os.path.join(input_folder, wav_file)
-        audio = AudioSegment.from_wav(wav_path)
-
-        # Define the output MP3 file path
-        mp3_file = os.path.splitext(wav_file)[0] + ".mp3"
-        mp3_path = os.path.join(input_folder, mp3_file)
-
-        audio.export(mp3_path, format="mp3")
-
-        print(f"Converted: {wav_file} to {mp3_file}")
 
 text2tts = bervitan.Engine()
 
-for i in range(0, 2):
-    apply_coqui = i == 1
+for i in range(0, 3):
+    apply_coqui = i > 1
+    convert_to_mp3 = i == 2
     if text2tts.tts2wav(
         text="OK! THAT IS IT! THIS IS THE FINAL STRAAAAAAAW! I’VE HAD IT WITH ALL YOU FRICKIN’\
             TROLLS AND ALL YOU FRICKIN’ HATERS AND ALL YOU FRICKIN SONIC FAN FRICKS.\
@@ -33,11 +18,12 @@ for i in range(0, 2):
                             WHY DO WE NEED A SONIC 2006 SEQUEL? WHY DO WE NEED ALL THAT? ",
         output_filepath="./build/output.en.wav",
         is_russian=False,
-        apply_coqui=apply_coqui
+        apply_coqui=apply_coqui,
+        convert_to_mp3=convert_to_mp3
     ):
-        print(f"TTS Russian -> Wav success! coqui_applied: {apply_coqui}")
+        print(f"TTS Russian -> Wav success! coqui_applied: {apply_coqui}, convert_to_mp3: {convert_to_mp3}")
     else:
-        print(f"Can't use tts for english, check params!  coqui_applied: {apply_coqui}")
+        print(f"Can't use tts for english, check params!  coqui_applied: {apply_coqui}, convert_to_mp3: {convert_to_mp3}")
         exit(1)
 
     if text2tts.tts2wav(
@@ -48,13 +34,12 @@ for i in range(0, 2):
                         Можно грабить корованы...", 
         output_filepath="./build/output.ru.wav", 
         is_russian=True,
-        apply_coqui=apply_coqui
+        apply_coqui=apply_coqui,
+        convert_to_mp3=convert_to_mp3
     ):
-        print(f"TTS Russian -> Wav success! coqui_applied: {apply_coqui}")
+        print(f"TTS Russian -> Wav success! coqui_applied: {apply_coqui}, convert_to_mp3: {convert_to_mp3}")
     else:
-        print(f"Can't use tts for russian, check params! coqui_applied: {apply_coqui}")
-        exit(1)        
-
-    convert_wav_to_mp3("build")
+        print(f"Can't use tts for russian, check params! coqui_applied: {apply_coqui}, convert_to_mp3: {convert_to_mp3}")
+        exit(1)
 
 exit(0)

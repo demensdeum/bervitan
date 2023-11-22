@@ -1,5 +1,7 @@
 # bervitan
 Coqui2RVC + API
+TTS2RVC + API
 
-Goblin RVC Model:
-https://huggingface.co/demensdeum/Goblin__RVC/tree/main
+RVC models:
+https://huggingface.co/demensdeum/Goblin__RVC/
+https://huggingface.co/demensdeum/Zhirinovsky__RVC

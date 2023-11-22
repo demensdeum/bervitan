@@ -14,7 +14,7 @@ class Engine:
             apply_coqui: bool = False,
             coqui_path: str = r"C:\Users\Demensdeum\Documents\Sources\3rdParty\RVC1006Nvidia",
             coqui_model_name: str = "goblin.pth",
-            coqui_index_path: str = r"C:\Users\Demensdeum\Documents\Sources\3rdParty\RVC1006Nvidia\logs\goblin\trained_IVF2148_Flat_nprobe_1_goblin_v2.index",
+            coqui_index_path: str = r"C:\Users\Demensdeum\Documents\Sources\3rdParty\RVC1006Nvidia\logs\goblin\added_IVF2148_Flat_nprobe_1_goblin_v2.index",
             coqui_is_half: bool = False,
             coqui_run_debug: bool = False,
             convert_to_mp3 = False

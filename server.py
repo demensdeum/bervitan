@@ -11,7 +11,9 @@ def generate_tts():
         data = request.get_json()
 
         message = data.get('message', '')
+        message.replace("\n", "")
         is_russian = data.get('is_russian', False)
+        pitch = data.get('pitch', 0.0)
 
         language = 'ru' if is_russian else 'en'
 
@@ -28,7 +30,8 @@ def generate_tts():
                 output_filepath=server_audio_output, 
                 is_russian=is_russian,
                 apply_coqui=True,
-                convert_to_mp3=True
+                convert_to_mp3=True,
+                pitch=pitch
             )            
 
         return send_file(server_audio_output_mp3, as_attachment=True)

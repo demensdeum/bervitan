@@ -11,7 +11,7 @@ class Engine:
             emotion: str = "Neutral", 
             speed: float = 2,
             pitch: int = 0,
-            apply_coqui: bool = False,
+            need_to_apply_coqui: bool = False,
             coqui_path: str = r"C:\Users\Demensdeum\Documents\Sources\3rdParty\RVC1006Nvidia",
             coqui_model_name: str = "goblin.pth",
             coqui_index_path: str = r"C:\Users\Demensdeum\Documents\Sources\3rdParty\RVC1006Nvidia\logs\goblin\added_IVF2148_Flat_nprobe_1_goblin_v2.index",
@@ -34,7 +34,7 @@ class Engine:
             tts = TTS(model_name=model_name, progress_bar=True, gpu=True)
             tts.tts_to_file(text=text, file_path=output_filepath, emotion=emotion, speed=speed)
 
-        if apply_coqui:
+        if need_to_apply_coqui:
             input_filepath = output_filepath
             absolute_input_filepath = path.abspath(input_filepath)
             absolutile_output_filepath = f"{absolute_input_filepath}.coqui.wav"            
@@ -43,22 +43,21 @@ class Engine:
             model_name = coqui_model_name
             index_path = coqui_index_path
             f0up_key = pitch
-            previous_cwd = getcwd()
-            chdir(coqui_path)
-            command = f"runtime\python.exe tools\infer_cli.py \
-                --input_path {absolute_input_filepath} \
-                --index_path {index_path} \
-                --f0method {f0method} \
-                --opt_path {absolutile_output_filepath} \
-                --model_name {model_name} \
-                --is_half {coqui_is_half} \
-                --f0up_key {f0up_key} \
+
+            command = f"python bervitan\\apply_coqui.py \
+                {coqui_path} \
+                {absolute_input_filepath} \
+                {index_path} \
+                {f0method} \
+                {absolutile_output_filepath} \
+                {model_name} \
+                {coqui_is_half} \
+                {f0up_key} \
                 "
             command = sub(' +', ' ', command)
             if coqui_run_debug:
                 print(command)
             exit_code = system(command)
-            chdir(previous_cwd)
 
             if exit_code == 0 and convert_to_mp3:
                 audio = AudioSegment.from_wav(output_filepath)
@@ -67,4 +66,4 @@ class Engine:
 
             return exit_code == 0
         else:
-            return True      
+            return True

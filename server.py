@@ -29,7 +29,7 @@ def generate_tts():
                 text=message, 
                 output_filepath=server_audio_output, 
                 is_russian=is_russian,
-                apply_coqui=True,
+                need_to_apply_coqui=True,
                 convert_to_mp3=True,
                 pitch=pitch
             )            

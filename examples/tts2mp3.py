@@ -7,7 +7,7 @@ import os
 text2tts = bervitan.Engine()
 
 for i in range(0, 3):
-    apply_coqui = i > 1
+    need_to_apply_coqui = i > 1
     convert_to_mp3 = i == 2
     if text2tts.tts2wav(
         text="OK! THAT IS IT! THIS IS THE FINAL STRAAAAAAAW! I’VE HAD IT WITH ALL YOU FRICKIN’\
@@ -18,12 +18,12 @@ for i in range(0, 3):
                             WHY DO WE NEED A SONIC 2006 SEQUEL? WHY DO WE NEED ALL THAT? ",
         output_filepath="./build/output.en.wav",
         is_russian=False,
-        apply_coqui=apply_coqui,
+        need_to_apply_coqui=need_to_apply_coqui,
         convert_to_mp3=convert_to_mp3
     ):
-        print(f"TTS Russian -> Wav success! coqui_applied: {apply_coqui}, convert_to_mp3: {convert_to_mp3}")
+        print(f"TTS Russian -> Wav success! need_to_apply_coqui: {need_to_apply_coqui}, convert_to_mp3: {convert_to_mp3}")
     else:
-        print(f"Can't use tts for english, check params!  coqui_applied: {apply_coqui}, convert_to_mp3: {convert_to_mp3}")
+        print(f"Can't use tts for english, check params!  coqui_applied: {need_to_apply_coqui}, convert_to_mp3: {convert_to_mp3}")
         exit(1)
 
     if text2tts.tts2wav(
@@ -34,12 +34,12 @@ for i in range(0, 3):
                         Можно грабить корованы...", 
         output_filepath="./build/output.ru.wav", 
         is_russian=True,
-        apply_coqui=apply_coqui,
+        need_to_apply_coqui=need_to_apply_coqui,
         convert_to_mp3=convert_to_mp3
     ):
-        print(f"TTS Russian -> Wav success! coqui_applied: {apply_coqui}, convert_to_mp3: {convert_to_mp3}")
+        print(f"TTS Russian -> Wav success! need_to_apply_coqui: {need_to_apply_coqui}, convert_to_mp3: {convert_to_mp3}")
     else:
-        print(f"Can't use tts for russian, check params! coqui_applied: {apply_coqui}, convert_to_mp3: {convert_to_mp3}")
+        print(f"Can't use tts for russian, check params! need_to_apply_coqui: {need_to_apply_coqui}, convert_to_mp3: {convert_to_mp3}")
         exit(1)
 
 exit(0)
